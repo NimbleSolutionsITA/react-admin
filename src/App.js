@@ -8,7 +8,7 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 // import UserIcon from '@material-ui/icons/Group';
 // import authProvider from "./authProvider";
 
-const dataProvider = simpleRestProvider('http://codacons-rest.nimble-lab.com/admin');
+const dataProvider = simpleRestProvider('https://codacons-rest.nimble-lab.com/admin');
 
 const App = () => (
     <Admin
