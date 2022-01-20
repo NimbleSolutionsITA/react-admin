@@ -61,7 +61,6 @@ export const LoginForm = ({
             </div>
             <CardActions>
                 <Button
-                    variant="raised"
                     type="submit"
                     color="primary"
                     disabled={isLoading}

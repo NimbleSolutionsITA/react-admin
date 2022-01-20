@@ -5,7 +5,6 @@ import {
     AUTH_LOGOUT,
     AUTH_CHECK,
     AUTH_ERROR,
-    AUTH_GET_PERMISSIONS,
 } from 'react-admin';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 
@@ -56,11 +55,13 @@ export const currentSession = () =>
     });
 
 const AuthProvider = (type, params) => {
-    console.log(Auth.configure())
     if (type === AUTH_LOGIN) {
-        return login(params);
+        const auth = login(params);
+        localStorage.setItem('auth', JSON.stringify(auth));
+        return auth
     }
     if (type === AUTH_LOGOUT) {
+        localStorage.removeItem('auth');
         return logout(params);
     }
     if (type === AUTH_CHECK) {
@@ -68,9 +69,6 @@ const AuthProvider = (type, params) => {
     }
     if (type === AUTH_ERROR) {
         return Promise.resolve(); // 4xx errors should not log the user out.
-    }
-    if (type === AUTH_GET_PERMISSIONS) {
-        return Promise.resolve({}); // Unimplemented (global permissions)
     }
     return Promise.reject(`Unsupported authentication method ${type}.`);
 };
