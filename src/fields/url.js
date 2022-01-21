@@ -4,6 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import LaunchIcon from '@material-ui/icons/Launch';
 
 const useStyles = makeStyles({
+    wrapper: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
     link: {
         textDecoration: 'none',
     },
@@ -17,11 +21,15 @@ const useStyles = makeStyles({
 const UrlField = ({ source }) => {
     const record = useRecordContext();
     const classes = useStyles();
-    return record ? (
-        <a href={record[source]} className={classes.link}>
-            {record[source]}
-            <LaunchIcon className={classes.icon} />
-        </a>
+    return record[source] ? (
+        <div className={classes.wrapper}>
+            {record[source].map((data, index) => (
+                <a href={data} target="_blank" className={classes.link}>
+                    Media #{index}
+                    <LaunchIcon className={classes.icon} />
+                </a>
+            ))}
+        </div>
     ) : null;
 }
 

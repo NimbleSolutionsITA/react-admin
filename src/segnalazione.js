@@ -7,19 +7,25 @@ import {
     Edit,
     SimpleForm,
     TextInput,
-    DateInput,
+    SelectInput,
     Create,
-    SimpleList, EmailField, ArrayInput, SimpleFormIterator,SingleFieldList
+    SimpleList, EmailField, ArrayInput, SimpleFormIterator,SelectField
 } from 'react-admin';
 import { useMediaQuery } from '@material-ui/core';
 import UrlField from "./fields/url";
 import DateField from "./fields/date";
-import ArrayField from "./fields/array";
 import TimestampDateField from "./fields/date";
 
 const segnalazioneFilters = [
     <TextInput source="q" label="Search" alwaysOn />,
 ];
+
+const statusChoices = [
+    { id: 'da_confermare', name: 'da confermare'},
+    { id: 'nuova', name: 'nuova' },
+    { id: 'in_lavorazione', name: 'in lavorazione' },
+    { id: 'chiusa', name: 'chiusa' },
+]
 
 export const SegnalazioneList = props => {
     const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
@@ -40,8 +46,12 @@ export const SegnalazioneList = props => {
                     <TextField source="lng" />*/}
                     <TextField source="messaggio" />
                     {/*<UrlField source="audio" />*/}
-                    <TextField source="status" />
-                    {/*<UrlField source="multimedia" />*/}
+                    <SelectField
+                        fullWidth
+                        source="status"
+                        choices={statusChoices}
+                    />
+                    <UrlField source="multimedia" />
                     <DateField source="localtimestampcreate" />
                     <EditButton />
                 </Datagrid>
@@ -60,7 +70,11 @@ export const SegnalazioneEdit = props => (
             <TextInput type="number" fullWidth source="lng" />
             <TextInput fullWidth source="messaggio" multiline rows={10} />
             <TextInput fullWidth source="audio" />
-            <TextInput fullWidth source="status" />
+            <SelectInput
+                fullWidth
+                source="status"
+                choices={statusChoices}
+            />
             <ArrayInput source="multimedia">
                 <SimpleFormIterator>
                     <TextInput source="" fullWidth />
@@ -80,7 +94,11 @@ export const SegnalazioneCreate = props => (
             <TextInput type="number" fullWidth source="lng" />
             <TextInput fullWidth source="messaggio" multiline rows={10} />
             <TextInput fullWidth source="audio" />
-            <TextInput fullWidth source="status" />
+            <SelectInput
+                fullWidth
+                source="status"
+                choices={statusChoices}
+            />
             <ArrayInput source="multimedia">
                 <SimpleFormIterator>
                     <TextInput fullWidth source="" />

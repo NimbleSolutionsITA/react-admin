@@ -8,7 +8,7 @@ import {SegnalazioneList, SegnalazioneEdit, SegnalazioneCreate} from "./segnalaz
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import italianMessages from 'ra-language-italian';
-import {Amplify, Auth} from "aws-amplify";
+import {Amplify} from "aws-amplify";
 import {apiUrl, userPoolId, AppClientId, region} from "./config";
 
 // import {UserList} from './users';
