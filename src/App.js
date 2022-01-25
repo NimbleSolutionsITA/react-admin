@@ -41,7 +41,6 @@ const httpClient = (url, options = {}) => {
         let tokenArray = JSON.parse(localStorage.getItem('tokenObj'))
         if (!(page in tokenArray)) {
             tokenArray[page] = localStorage.getItem('pagToken')
-            console.log('PD', tokenArray)
             localStorage.setItem("tokenObj",JSON.stringify(tokenArray))
         }
         const PagToken = {
