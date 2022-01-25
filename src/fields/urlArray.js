@@ -24,8 +24,8 @@ const UrlArrayField = ({ source }) => {
     return record[source] ? (
         <div className={classes.wrapper}>
             {record[source].map((data, index) => (
-                <a href={data} target="_blank" rel="noreferrer" className={classes.link}>
-                    Media #{index}
+                <a key={data.key} href={data.url} target="_blank" rel="noreferrer" className={classes.link}>
+                    {source}#{index}
                     <LaunchIcon className={classes.icon} />
                 </a>
             ))}

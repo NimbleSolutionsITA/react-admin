@@ -23,8 +23,8 @@ const UrlField = ({ source }) => {
     const classes = useStyles();
     return record[source] ? (
         <div className={classes.wrapper}>
-            <a href={record[source]} target="_blank" rel="noreferrer" className={classes.link}>
-                Audio
+            <a href={record[source].url} target="_blank" rel="noreferrer" className={classes.link}>
+                {source}
                 <LaunchIcon className={classes.icon} />
             </a>
         </div>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {
+import {ArrayField,
     List,
     Datagrid,
     TextField,
@@ -9,7 +9,7 @@ import {
     TextInput,
     SelectInput,
     Create,
-    SimpleList, EmailField, ArrayInput, SimpleFormIterator,SelectField
+    SimpleList, EmailField, ArrayInput, SimpleFormIterator,SelectField, SingleFieldList
 } from 'react-admin';
 import { useMediaQuery } from '@material-ui/core';
 import UrlField from "./fields/url";
@@ -64,7 +64,7 @@ export const SegnalazioneEdit = props => (
             <TextInput type="number" fullWidth source="lat" />
             <TextInput type="number" fullWidth source="lng" />
             <TextInput fullWidth source="messaggio" multiline rows={10} />
-            <TextInput fullWidth source="audio" />
+            <TextInput fullWidth source="audio.key" />
             <SelectInput
                 fullWidth
                 source="status"
@@ -72,7 +72,7 @@ export const SegnalazioneEdit = props => (
             />
             <ArrayInput source="multimedia">
                 <SimpleFormIterator>
-                    <TextInput source="" fullWidth />
+                    <TextInput source="key" fullWidth />
                 </SimpleFormIterator>
             </ArrayInput>
             <TimestampDateField disabled fullWidth source="localtimestampcreate" />
@@ -88,7 +88,7 @@ export const SegnalazioneCreate = props => (
             <TextInput type="number" fullWidth source="lat" />
             <TextInput type="number" fullWidth source="lng" />
             <TextInput fullWidth source="messaggio" multiline rows={10} />
-            <TextInput fullWidth source="audio" />
+            <TextInput fullWidth source="audio.key" />
             <SelectInput
                 fullWidth
                 source="status"
@@ -96,7 +96,7 @@ export const SegnalazioneCreate = props => (
             />
             <ArrayInput source="multimedia">
                 <SimpleFormIterator>
-                    <TextInput fullWidth source="" />
+                    <TextInput fullWidth source="key" />
                 </SimpleFormIterator>
             </ArrayInput>
         </SimpleForm>
