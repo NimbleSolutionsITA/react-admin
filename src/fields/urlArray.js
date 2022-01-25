@@ -18,17 +18,19 @@ const useStyles = makeStyles({
     },
 });
 
-const UrlField = ({ source }) => {
+const UrlArrayField = ({ source }) => {
     const record = useRecordContext();
     const classes = useStyles();
     return record[source] ? (
         <div className={classes.wrapper}>
-            <a href={record[source]} target="_blank" className={classes.link}>
-                Audio
-                <LaunchIcon className={classes.icon} />
-            </a>
+            {record[source].map((data, index) => (
+                <a href={data} target="_blank" className={classes.link}>
+                    Media #{index}
+                    <LaunchIcon className={classes.icon} />
+                </a>
+            ))}
         </div>
     ) : null;
 }
 
-export default UrlField;
+export default UrlArrayField;

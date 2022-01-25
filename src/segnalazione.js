@@ -15,22 +15,17 @@ import { useMediaQuery } from '@material-ui/core';
 import UrlField from "./fields/url";
 import DateField from "./fields/date";
 import TimestampDateField from "./fields/date";
+import {statusChoices} from "./config";
+import UrlArrayField from "./fields/urlArray";
 
-const segnalazioneFilters = [
+/*const segnalazioneFilters = [
     <TextInput source="q" label="Search" alwaysOn />,
-];
-
-const statusChoices = [
-    { id: 'da_confermare', name: 'da confermare'},
-    { id: 'nuova', name: 'nuova' },
-    { id: 'in_lavorazione', name: 'in lavorazione' },
-    { id: 'chiusa', name: 'chiusa' },
-]
+];*/
 
 export const SegnalazioneList = props => {
     const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
     return (
-        <List filters={segnalazioneFilters} {...props}>
+        <List /*filters={segnalazioneFilters}*/ {...props}>
             {isSmall ? (
                 <SimpleList
                     primaryText={record => record.messaggio}
@@ -45,13 +40,13 @@ export const SegnalazioneList = props => {
                     <TextField source="lat" />
                     <TextField source="lng" />*/}
                     <TextField source="messaggio" />
-                    {/*<UrlField source="audio" />*/}
                     <SelectField
                         fullWidth
                         source="status"
                         choices={statusChoices}
                     />
-                    <UrlField source="multimedia" />
+                    <UrlField source="audio" />
+                    <UrlArrayField source="multimedia" />
                     <DateField source="localtimestampcreate" />
                     <EditButton />
                 </Datagrid>

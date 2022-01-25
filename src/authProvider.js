@@ -58,10 +58,13 @@ const AuthProvider = (type, params) => {
     if (type === AUTH_LOGIN) {
         const auth = login(params);
         localStorage.setItem('auth', JSON.stringify(auth));
+        localStorage.setItem("tokenObj",JSON.stringify({"1": ""}))
         return auth
     }
     if (type === AUTH_LOGOUT) {
         localStorage.removeItem('auth');
+        localStorage.removeItem('pagToken');
+        localStorage.removeItem('tokenObj');
         return logout(params);
     }
     if (type === AUTH_CHECK) {

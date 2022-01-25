@@ -9,10 +9,12 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import italianMessages from 'ra-language-italian';
 import {Amplify} from "aws-amplify";
-import {apiUrl, userPoolId, AppClientId, region} from "./config";
-
-// import {UserList} from './users';
-// import UserIcon from '@material-ui/icons/Group';
+import {apiUrl, userPoolId, AppClientId, region, apiUrlLocal} from "./config";
+import {UserList} from './users';
+import UserIcon from '@material-ui/icons/Group';
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+import {EmailTemplateCreate, EmailTemplateEdit, EmailTemplateList} from "./emailTemplate";
+import { theme } from "./theme";
 
 const i18nProvider = polyglotI18nProvider(() => italianMessages, 'it');
 
@@ -30,28 +32,59 @@ const httpClient = (url, options = {}) => {
     }
     const auth = JSON.parse(localStorage.getItem('auth'));
     options.headers.set('Authorization', `Bearer ${auth.signInUserSession.idToken.jwtToken}`);
+
+    const urlObj = new URL(url)
+    if (urlObj.pathname.split('/').includes('users')) {
+        const range = JSON.parse(urlObj.searchParams.get('range'))
+        const perPage = (range[1] + 1) - range[0]
+        const page = (range[0] / perPage) + 1
+        let tokenArray = JSON.parse(localStorage.getItem('tokenObj'))
+        if (!(page in tokenArray)) {
+            tokenArray[page] = localStorage.getItem('pagToken')
+            console.log('PD', tokenArray)
+            localStorage.setItem("tokenObj",JSON.stringify(tokenArray))
+        }
+        const PagToken = {
+            token : localStorage.getItem('pagToken') || '',
+            tokenArray
+        }
+        options.method = 'POST'
+        options.body = JSON.stringify(PagToken)
+    }
+
     return fetchUtils.fetchJson(url, options);
 }
 
 const App = () => (
     <Admin
+        theme={theme}
         authProvider={AuthProvider}
         loginPage={Login}
-        dataProvider={simpleRestProvider(apiUrl, httpClient)}
+        dataProvider={simpleRestProvider(apiUrlLocal, httpClient)}
         dashboard={Dashboard}
         i18nProvider={i18nProvider}
     >
-        {/*<Resource
+        <Resource
             name="users"
             list={UserList}
             icon={UserIcon}
-        />*/}
+            options={{ label: 'Utenti' }}
+        />
+        <Resource
+            name="email-templates"
+            list={EmailTemplateList}
+            edit={EmailTemplateEdit}
+            create={EmailTemplateCreate}
+            icon={AlternateEmailIcon}
+            options={{ label: 'Template email' }}
+        />
         <Resource
             name="segnalazioni"
             list={SegnalazioneList}
             edit={SegnalazioneEdit}
             create={SegnalazioneCreate}
             icon={AnnouncementIcon}
+            options={{ label: 'Segnalazioni' }}
         />
     </Admin>
 );

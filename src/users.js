@@ -1,18 +1,17 @@
 import * as React from "react";
-import { List, Datagrid, TextField, EmailField } from 'react-admin';
+import { List, Datagrid, TextField, BooleanField, DateField } from 'react-admin';
 import UrlField from "./fields/url";
 
 export const UserList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
-            <TextField source="name" />
-            <TextField source="username" />
-            <EmailField source="email" />
-            <TextField source="address.street" />
-            <TextField source="phone" />
-            <UrlField source="website" />
-            <TextField source="company.name" />
+            <TextField source="userEmail" />
+            <BooleanField source="userEmailVerified" />
+            <DateField source="userCreateDate" />
+            <DateField source="userLastModifiedDate" />
+            <TextField source="userStatus" />
+            <BooleanField source="userEnabled" />
         </Datagrid>
     </List>
 );

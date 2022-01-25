@@ -6,6 +6,7 @@ const httpClient = fetchUtils.fetchJson;
 
 export default {
     getList: (resource, params) => {
+        console.log('PDPDPD')
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
         const query = {
@@ -15,10 +16,14 @@ export default {
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
-        return httpClient(url).then(({ headers, json }) => ({
-            data: json,
-            total: parseInt(headers.get('content-range').split('/').pop(), 10),
-        }));
+
+        return httpClient(url).then((response) => {
+            console.log(response)
+            return ({
+                data: response.json,
+                total: parseInt(response.headers.get('content-range').split('/').pop(), 10),
+            })
+        });
     },
 
     getOne: (resource, params) =>
