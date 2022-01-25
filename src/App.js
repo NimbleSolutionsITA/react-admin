@@ -9,7 +9,7 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import italianMessages from 'ra-language-italian';
 import {Amplify} from "aws-amplify";
-import {apiUrl, userPoolId, AppClientId, region, apiUrlLocal} from "./config";
+import {apiUrl, userPoolId, AppClientId, region} from "./config";
 import {UserList} from './users';
 import UserIcon from '@material-ui/icons/Group';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
@@ -60,7 +60,7 @@ const App = () => (
         theme={theme}
         authProvider={AuthProvider}
         loginPage={Login}
-        dataProvider={simpleRestProvider(apiUrlLocal, httpClient)}
+        dataProvider={simpleRestProvider(apiUrl, httpClient)}
         dashboard={Dashboard}
         i18nProvider={i18nProvider}
     >
