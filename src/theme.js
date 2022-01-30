@@ -7,6 +7,9 @@ export const theme = createTheme(
         palette: {
             // Your theme goes here
             // Write the following code to have an orange app bar. We'll explain it later in this article.
+            primary: {
+                main: '#40774a'
+            },
             secondary: {
                 main: "#40774a", // Not far from orange
             },

@@ -4,6 +4,7 @@ import defaultTheme from 'ra-ui-materialui/lib/defaultTheme';
 import Notification from 'ra-ui-materialui/lib/layout/Notification';
 import { useDispatch } from 'react-redux'
 import { userLogin } from 'ra-core';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
@@ -21,7 +22,7 @@ import {useTranslate} from "react-admin";
 
 const useStyles = makeStyles(pageStyles)
 
-const Login = ({className, ...rest}) => {
+const Login = ({className, theme, ...rest}) => {
 
     const [cognitoUser, setCognitoUser] = useState(null)
     const [step, setStep] = useState('login')
@@ -50,24 +51,29 @@ const Login = ({className, ...rest}) => {
     }
 
     return (
-        <div
-            className={classnames(classes.main, className)}
-            {...sanitizeRestProps(rest)}
-        >
-            <Card className={classes.card}>
-                <div className={classes.avatar}>
-                    <Avatar className={classes.icon}>
-                        <LockIcon />
-                    </Avatar>
-                </div>
-                {step === 'login' ? (
-                    <DefaultLoginForm login={handleLogin} translate={translate}/>
-                ) : step === 'change_password' ? (
-                    <ChangePasswordForm changePassword={handleChangePassword} translate={translate} />
-                ) : null}
-            </Card>
-            <Notification />
-        </div>
+        <MuiThemeProvider theme={theme}>
+            <div
+                className={classnames(classes.main, className)}
+                {...sanitizeRestProps(rest)}
+            >
+                <Card className={classes.card}>
+                    <div style={{maxWidth: '150px', margin: '30px auto'}}>
+                        <img width="100%" src="/logo.jpg" alt="Codacons logo" />
+                    </div>
+                    <div className={classes.avatar}>
+                        <Avatar className={classes.icon}>
+                            <LockIcon />
+                        </Avatar>
+                    </div>
+                    {step === 'login' ? (
+                        <DefaultLoginForm login={handleLogin} translate={translate}/>
+                    ) : step === 'change_password' ? (
+                        <ChangePasswordForm changePassword={handleChangePassword} translate={translate} />
+                    ) : null}
+                </Card>
+                <Notification />
+            </div>
+        </MuiThemeProvider>
     )
 }
 
