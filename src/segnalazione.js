@@ -18,14 +18,20 @@ import TimestampDateField from "./fields/date";
 import {statusChoices} from "./config";
 import UrlArrayField from "./fields/urlArray";
 
-/*const segnalazioneFilters = [
-    <TextInput source="q" label="Search" alwaysOn />,
-];*/
+const segnalazioneFilters = [
+    <TextInput source="email" label="Email" alwaysOn />,
+    <TextInput source="id" label="Id" />,
+    <SelectInput
+        fullWidth
+        source="status"
+        choices={statusChoices}
+    />
+];
 
 export const SegnalazioneList = props => {
     const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
     return (
-        <List /*filters={segnalazioneFilters}*/ {...props}>
+        <List filters={segnalazioneFilters} {...props}>
             {isSmall ? (
                 <SimpleList
                     primaryText={record => record.messaggio}
@@ -33,21 +39,22 @@ export const SegnalazioneList = props => {
                     tertiaryText={record => new Date(record.localtimestampcreate).toLocaleDateString()}
                 />
             ) : (
-                <Datagrid>
-                    <TextField source="id" />
-                    <EmailField source="email" />
+                <Datagrid >
+                    <TextField source="id" sortable={false} />
+                    <EmailField source="email" sortable={false} />
                     {/*<TextField source="indirizzo" />
                     <TextField source="lat" />
                     <TextField source="lng" />*/}
-                    <TextField source="messaggio" />
+                    <TextField source="messaggio" sortable={false} />
                     <SelectField
                         fullWidth
                         source="status"
                         choices={statusChoices}
+                        sortable={false}
                     />
-                    <UrlField source="audio" />
-                    <UrlArrayField source="multimedia" />
-                    <DateField source="localtimestampcreate" />
+                    <UrlField source="audio" sortable={false} />
+                    <UrlArrayField source="multimedia" sortable={false} />
+                    <DateField source="localtimestampcreate" label="Data di creazione" sortable={false} />
                     <EditButton />
                 </Datagrid>
             )}

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Admin, Resource, fetchUtils } from 'react-admin';
-import simpleRestProvider from 'ra-data-simple-rest';
+import dataProvider from "./dataProvider/index";
 import AuthProvider from "./authProvider";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
@@ -9,7 +9,7 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import italianMessages from 'ra-language-italian';
 import {Amplify} from "aws-amplify";
-import {apiUrl, userPoolId, AppClientId, region} from "./config";
+import {apiUrl, userPoolId, AppClientId, region/*, apiUrlLocal*/} from "./config";
 import {UserList} from './users';
 import UserIcon from '@material-ui/icons/Group';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
@@ -59,7 +59,7 @@ const App = () => (
         theme={theme}
         authProvider={AuthProvider}
         loginPage={Login}
-        dataProvider={simpleRestProvider(apiUrl, httpClient)}
+        dataProvider={dataProvider(apiUrl, httpClient)}
         dashboard={Dashboard}
         i18nProvider={i18nProvider}
     >

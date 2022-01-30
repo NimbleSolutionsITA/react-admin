@@ -33,10 +33,11 @@ export const EmailTemplateList = props => {
                         fullWidth
                         source="id"
                         choices={statusChoices}
+                        sortable={false}
                     />
-                    <EmailField source="from" />
-                    <EmailField source="to" />
-                    <TextField source="subject" />
+                    <EmailField source="from" sortable={false} />
+                    <EmailField source="to" sortable={false} />
+                    <TextField source="subject" sortable={false} />
                     <EditButton />
                 </Datagrid>
             )}

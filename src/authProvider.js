@@ -47,12 +47,11 @@ export const changePassword = params =>
         R.props(['cognitoUser', 'password'])
     )(params);
 
-export const currentSession = () =>
-    Auth.currentSession().then(session => {
-        if (!session || !(userGroup && session.idToken.payload['cognito:groups']?.indexOf(userGroup) > -1))
-            return Promise.reject('You need to sign in  with admin privileges to access that page.');
-        return session;
-    });
+export const currentSession = () => Auth.currentSession().then(session => {
+    if (!session || !(userGroup && session.idToken.payload['cognito:groups']?.indexOf(userGroup) > -1))
+        return Promise.reject('You need to sign in  with admin privileges to access that page.');
+    return session;
+})
 
 const AuthProvider = (type, params) => {
     if (type === AUTH_LOGIN) {
