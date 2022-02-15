@@ -44,7 +44,14 @@ export const SegnalazioneList = props => {
                 />
             ) : (
                 <Datagrid >
-                    <TextField source="id" sortable={false} />
+                    <EditButton label={<TextField
+                        source="id"
+                        sortable={false}
+                        InputProps={{
+                            startAdornment: <EditButton label="edit" />
+                        }}
+                    />} />
+
                     <EmailField source="email" sortable={false} />
                     {/*<TextField source="indirizzo" />
                     <TextField source="lat" />
