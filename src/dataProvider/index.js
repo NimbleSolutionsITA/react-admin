@@ -9,7 +9,7 @@ import {
     GET_MANY,
     GET_MANY_REFERENCE,
 } from 'react-admin';
-import {apiUrlLocal} from "../config";
+import {apiUrl} from "../config";
 import cognitoDataProvider from "./cognitoDataProvider";
 import dynamoDataProvider from "./dynamoDataProvider";
 
@@ -43,11 +43,11 @@ const httpClient = (url, options = {}) => {
 
 const dataProviders = [
     {
-        dataProvider: cognitoDataProvider(apiUrlLocal, httpClient),
+        dataProvider: cognitoDataProvider(apiUrl, httpClient),
         resources: ['users'],
     },
     {
-        dataProvider: dynamoDataProvider(apiUrlLocal, httpClient),
+        dataProvider: dynamoDataProvider(apiUrl, httpClient),
         resources: ['segnalazioni', 'email-templates'],
     },
 ];
