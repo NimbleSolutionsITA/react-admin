@@ -10,3 +10,12 @@ export const statusChoices = [
     { id: 'in_lavorazione', name: 'in lavorazione' },
     { id: 'chiusa', name: 'chiusa' },
 ]
+
+
+export const awsConfigure = {
+    Auth: {
+        region,
+        userPoolId,
+        userPoolWebClientId: AppClientId,
+    }
+}

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ArrayField,
+import {
     List,
     Datagrid,
     TextField,
@@ -11,12 +11,16 @@ import {ArrayField,
     Create,
     SimpleList, EmailField, ArrayInput, SimpleFormIterator,SelectField, SingleFieldList
 } from 'react-admin';
-import { useMediaQuery } from '@material-ui/core';
-import UrlField from "./fields/url";
+import { useMediaQuery, Grid } from '@material-ui/core';
 import DateField from "./fields/date";
 import TimestampDateField from "./fields/date";
 import {statusChoices} from "./config";
 import UrlArrayField from "./fields/urlArray";
+import AudioInput from "./fields/audioInput";
+import AudioField from "./fields/audio";
+import MediaInput from "./fields/mediaInput";
+import {NumberInput} from "ra-ui-materialui";
+import MapField from "./fields/map";
 
 const segnalazioneFilters = [
     <TextInput source="email" label="Email" alwaysOn />,
@@ -52,7 +56,7 @@ export const SegnalazioneList = props => {
                         choices={statusChoices}
                         sortable={false}
                     />
-                    <UrlField source="audio" sortable={false} />
+                    <AudioField source="audio" sortable={false} />
                     <UrlArrayField source="multimedia" sortable={false} />
                     <DateField source="localtimestampcreate" label="Data di creazione" sortable={false} />
                     <EditButton />
@@ -68,10 +72,19 @@ export const SegnalazioneEdit = props => (
             <TextInput fullWidth disabled source="id" />
             <TextInput type="email" fullWidth source="email" />
             <TextInput fullWidth source="indirizzo" />
-            <TextInput type="number" fullWidth source="lat" />
-            <TextInput type="number" fullWidth source="lng" />
+            <Grid container spacing={5}>
+                <Grid item xs={6}>
+                    <NumberInput fullWidth source="lat" />
+                </Grid>
+                <Grid item xs={6}>
+                    <NumberInput fullWidth source="lng" />
+                </Grid>
+                <Grid item xs={12}>
+                    <MapField />
+                </Grid>
+            </Grid>
             <TextInput fullWidth source="messaggio" multiline rows={10} />
-            <TextInput fullWidth source="audio.key" />
+            <AudioInput source="audio" />
             <SelectInput
                 fullWidth
                 source="status"
@@ -79,7 +92,8 @@ export const SegnalazioneEdit = props => (
             />
             <ArrayInput source="multimedia">
                 <SimpleFormIterator>
-                    <TextInput source="key" fullWidth />
+                    <TextInput fullWidth source="key" />
+                    <MediaInput source="url" />
                 </SimpleFormIterator>
             </ArrayInput>
             <TimestampDateField disabled fullWidth source="localtimestampcreate" />
@@ -92,8 +106,8 @@ export const SegnalazioneCreate = props => (
         <SimpleForm onSubmit={console.log}>
             <TextInput type="email" fullWidth source="email" />
             <TextInput fullWidth source="indirizzo" />
-            <TextInput type="number" fullWidth source="lat" />
-            <TextInput type="number" fullWidth source="lng" />
+            <NumberInput fullWidth source="lat" />
+            <NumberInput fullWidth source="lng" />
             <TextInput fullWidth source="messaggio" multiline rows={10} />
             <TextInput fullWidth source="audio.key" />
             <SelectInput

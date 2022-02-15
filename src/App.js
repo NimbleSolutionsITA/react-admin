@@ -9,7 +9,7 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import italianMessages from 'ra-language-italian';
 import {Amplify} from "aws-amplify";
-import {apiUrl, userPoolId, AppClientId, region/*, apiUrlLocal*/} from "./config";
+import {userPoolId, AppClientId, region} from "./config";
 import {UserList} from './users';
 import UserIcon from '@material-ui/icons/Group';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
@@ -26,40 +26,12 @@ Amplify.configure({
     }
 })
 
-const httpClient = (url, options = {}) => {
-    if (!options.headers) {
-        options.headers = new Headers({ Accept: 'application/json' });
-    }
-    const auth = JSON.parse(localStorage.getItem('auth'));
-    options.headers.set('Authorization', `Bearer ${auth.signInUserSession.idToken.jwtToken}`);
-
-    const urlObj = new URL(url)
-    if (urlObj.pathname.split('/').includes('users')) {
-        const range = JSON.parse(urlObj.searchParams.get('range'))
-        const perPage = (range[1] + 1) - range[0]
-        const page = (range[0] / perPage) + 1
-        let tokenArray = JSON.parse(localStorage.getItem('tokenObj'))
-        if (!(page in tokenArray)) {
-            tokenArray[page] = localStorage.getItem('pagToken')
-            localStorage.setItem("tokenObj",JSON.stringify(tokenArray))
-        }
-        const PagToken = {
-            token : localStorage.getItem('pagToken') || '',
-            tokenArray
-        }
-        options.method = 'POST'
-        options.body = JSON.stringify(PagToken)
-    }
-
-    return fetchUtils.fetchJson(url, options);
-}
-
 const App = () => (
     <Admin
         theme={theme}
         authProvider={AuthProvider}
         loginPage={Login}
-        dataProvider={dataProvider(apiUrl, httpClient)}
+        dataProvider={dataProvider}
         dashboard={Dashboard}
         i18nProvider={i18nProvider}
     >

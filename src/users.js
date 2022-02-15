@@ -2,7 +2,6 @@ import * as React from "react";
 import { List, Datagrid, TextField, BooleanField, DateField } from 'react-admin';
 
 export const UserList = props => {
-    console.log(props)
     return (
         <List {...props} bulkActionButtons={false}>
             <Datagrid rowClick="edit">
