@@ -35,8 +35,6 @@ export const EmailTemplateList = props => {
                         choices={statusChoices}
                         sortable={false}
                     />
-                    <EmailField source="from" sortable={false} />
-                    <EmailField source="to" sortable={false} />
                     <TextField source="subject" sortable={false} />
                     <EditButton />
                 </Datagrid>
@@ -53,8 +51,6 @@ export const EmailTemplateEdit = props => (
                 source="id"
                 choices={statusChoices}
             />
-            <TextInput type="email" fullWidth source="from" />
-            <TextInput type="email" fullWidth source="to" />
             <TextInput fullWidth source="subject" />
             <RichTextInput fullWidth source="template" />
         </SimpleForm>
@@ -69,8 +65,6 @@ export const EmailTemplateCreate = props => (
                 source="id"
                 choices={statusChoices}
             />
-            <TextInput type="email" fullWidth source="from" />
-            <TextInput type="email" fullWidth source="to" />
             <TextInput fullWidth source="subject" />
             <RichTextInput fullWidth source="template" />
         </SimpleForm>
