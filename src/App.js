@@ -9,7 +9,6 @@ import AnnouncementIcon from '@material-ui/icons/Announcement';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import italianMessages from 'ra-language-italian';
 import {Amplify} from "aws-amplify";
-import {userPoolId, AppClientId, region} from "./config";
 import {UserList} from './users';
 import UserIcon from '@material-ui/icons/Group';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
@@ -18,11 +17,13 @@ import { theme } from "./theme";
 
 const i18nProvider = polyglotI18nProvider(() => italianMessages, 'it');
 
+console.log(process.env)
+
 Amplify.configure({
     Auth: {
-        region,
-        userPoolId,
-        userPoolWebClientId: AppClientId,
+        region: process.env.REACT_APP_REGION,
+        userPoolId: process.env.REACT_APP_USER_POOL_ID,
+        userPoolWebClientId: process.env.REACT_APP_APP_CLIENT_ID,
     }
 })
 

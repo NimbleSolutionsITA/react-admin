@@ -7,7 +7,6 @@ import {
     AUTH_ERROR,
 } from 'react-admin';
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import {userGroup} from "./config";
 
 // applyBinaryFn = (* -> a) -> [*] -> a
 export const applyBinaryFn = f => R.apply(R.binary(f));
@@ -48,6 +47,7 @@ export const changePassword = params =>
     )(params);
 
 export const currentSession = () => Auth.currentSession().then(session => {
+    const userGroup = process.env.REACT_APP_USER_GROUP
     if (!session || !(userGroup && session.idToken.payload['cognito:groups']?.indexOf(userGroup) > -1))
         return Promise.reject('You need to sign in  with admin privileges to access that page.');
     return session;

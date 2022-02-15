@@ -2,7 +2,6 @@ import * as React from "react";
 import {useRecordContext} from "react-admin";
 import GoogleMapReact from 'google-map-react';
 import RoomIcon from '@material-ui/icons/Room';
-import {googleApiKey} from "../config";
 
 const Marker = ({lat, lng}) => (
     <div style={{position: 'absolute', transform: 'translate(-50%, -80%)' }}>
@@ -23,7 +22,7 @@ const MapField = () => {
             <div style={{position: 'absolute', width: '100%', height: '100%'}}>
                 <GoogleMapReact
                     bootstrapURLKeys={{
-                        key: googleApiKey,
+                        key: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
                         libraries:['places', 'geometry', 'drawing', 'visualization']
                     }}
                     defaultCenter={{

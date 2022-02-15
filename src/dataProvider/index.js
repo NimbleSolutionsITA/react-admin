@@ -9,11 +9,11 @@ import {
     GET_MANY,
     GET_MANY_REFERENCE,
 } from 'react-admin';
-import {apiUrl} from "../config";
 import cognitoDataProvider from "./cognitoDataProvider";
 import dynamoDataProvider from "./dynamoDataProvider";
 
 const httpClient = (url, options = {}) => {
+    console.log(process.env.REACT_APP_API_URL)
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
     }
@@ -41,7 +41,7 @@ const httpClient = (url, options = {}) => {
     return fetchUtils.fetchJson(url, options);
 }
 
-const dataProviders = [
+const dataProviders = (apiUrl) => [
     {
         dataProvider: cognitoDataProvider(apiUrl, httpClient),
         resources: ['users'],
@@ -53,7 +53,7 @@ const dataProviders = [
 ];
 
 export default (type, resource, params) => {
-    const dataProviderMapping = dataProviders.find((dp) =>
+    const dataProviderMapping = dataProviders(process.env.REACT_APP_API_URL).find((dp) =>
         dp.resources.includes(resource));
 
     const mappingType = {
