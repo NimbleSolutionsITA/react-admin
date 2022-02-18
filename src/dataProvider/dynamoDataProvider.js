@@ -46,45 +46,26 @@ export default (
         const rangeEnd = page * perPage - 1;
 
         const query = {
-            sort: JSON.stringify([field, order]),
-            range: JSON.stringify([rangeStart, rangeEnd]),
+            page,
+            limit: perPage,
             filter: JSON.stringify(params.filter),
+            // sort: JSON.stringify([field, order]),
+            // range: JSON.stringify([rangeStart, rangeEnd]),
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
-        let options
-
-        if (resource === 'users') {
-            let tokenArray = JSON.parse(localStorage.getItem('tokenObj'))
-            if (!(page in tokenArray)) {
-                tokenArray[page] = localStorage.getItem('pagToken')
-                localStorage.setItem("tokenObj",JSON.stringify(tokenArray))
-            }
-            options = {
-                body: JSON.stringify({
-                    token : localStorage.getItem('pagToken') || '',
-                    tokenArray : tokenArray
-                })
-            }
-        }
-
-        else {
-            options =
-                countHeader === 'Content-Range'
-                    ? {
-                        // Chrome doesn't return `Content-Range` header if no `Range` is provided in the request.
-                        headers: new Headers({
-                            Range: `${resource}=${rangeStart}-${rangeEnd}`,
-                        }),
-                    }
-                    : {};
-        }
-
+        let options =
+            countHeader === 'Content-Range'
+                ? {
+                    // Chrome doesn't return `Content-Range` header if no `Range` is provided in the request.
+                    headers: new Headers({
+                        Range: `${resource}=${rangeStart}-${rangeEnd}`,
+                    }),
+                }
+                : {};
 
 
         return httpClient(url, options).then(({ headers, json }) => {
-
-            resource === 'users' && localStorage.setItem("pagToken", headers.get('pagination-token'))
 
             if (!headers.has(countHeader)) {
                 throw new Error(

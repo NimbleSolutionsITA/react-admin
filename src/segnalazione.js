@@ -9,7 +9,7 @@ import {
     TextInput,
     SelectInput,
     Create,
-    SimpleList, EmailField, ArrayInput, SimpleFormIterator,SelectField, SingleFieldList
+    SimpleList, EmailField, ArrayInput, SimpleFormIterator, SelectField, useRecordContext
 } from 'react-admin';
 import { useMediaQuery, Grid } from '@material-ui/core';
 import DateField from "./fields/date";
@@ -21,6 +21,7 @@ import AudioField from "./fields/audio";
 import MediaInput from "./fields/mediaInput";
 import {NumberInput} from "ra-ui-materialui";
 import MapField from "./fields/map";
+import EditField from "./fields/edit";
 
 const segnalazioneFilters = [
     <TextInput source="email" label="Email" alwaysOn />,
@@ -34,6 +35,7 @@ const segnalazioneFilters = [
 
 export const SegnalazioneList = props => {
     const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
+    const record = useRecordContext();
     return (
         <List filters={segnalazioneFilters} {...props}>
             {isSmall ? (
@@ -44,13 +46,7 @@ export const SegnalazioneList = props => {
                 />
             ) : (
                 <Datagrid >
-                    <EditButton label={<TextField
-                        source="id"
-                        sortable={false}
-                        InputProps={{
-                            startAdornment: <EditButton label="edit" />
-                        }}
-                    />} />
+                    <EditField source="id" sortable={false} />
 
                     <EmailField source="email" sortable={false} />
                     {/*<TextField source="indirizzo" />
