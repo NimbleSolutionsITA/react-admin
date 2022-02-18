@@ -9,7 +9,15 @@ import {
     TextInput,
     SelectInput,
     Create,
-    SimpleList, EmailField, ArrayInput, SimpleFormIterator, SelectField, useRecordContext
+    SimpleList,
+    EmailField,
+    ArrayInput,
+    SimpleFormIterator,
+    SelectField,
+    TopToolbar,
+    FilterButton,
+    CreateButton,
+    ExportButton
 } from 'react-admin';
 import { useMediaQuery, Grid } from '@material-ui/core';
 import DateField from "./fields/date";
@@ -32,12 +40,17 @@ const segnalazioneFilters = [
         choices={statusChoices}
     />
 ];
+const ListActions = (props) => (
+    <TopToolbar>
+        <FilterButton/>
+        <ExportButton/>
+    </TopToolbar>
+);
 
 export const SegnalazioneList = props => {
     const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
-    const record = useRecordContext();
     return (
-        <List filters={segnalazioneFilters} {...props}>
+        <List filters={segnalazioneFilters} actions={<ListActions />} {...props}>
             {isSmall ? (
                 <SimpleList
                     primaryText={record => record.messaggio}
